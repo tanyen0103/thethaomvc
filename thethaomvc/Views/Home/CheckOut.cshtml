@@ -1,0 +1,64 @@
+﻿@model List<thethaomvc.Models.CartItem>
+@{
+    int num = 1;        // số thứ tự
+    int amount = 0;     // thành tiền
+    int total = 0;      // tổng tiền
+}
+<div class="row">
+    <div class="col">
+        <h3 class="text-danger">Thông tin đơn hàng</h3>
+        <table class="table table-bordered">
+            <tr class="bg-dark text-white">
+                <th>STT</th>
+                <th>Sản phẩm</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th>Thành tiền</th>
+
+            </tr>
+            @foreach (var i in Model)
+            {
+                amount = i.SanPham.GiaTien * i.SoLuong;
+                total += amount;
+                <tr class="align-middle">
+                    <td>@(num++)</td>
+                    <td>
+                        <img src="~/images/@(i.SanPham.HinhAnh)" class="img-thumbnail" width="50" />
+                        @(i.SanPham.TenSP)
+                    </td>
+                    <td>@(i.SanPham.GiaTien.ToString("n0"))</td>
+                    <td>
+                        @(i.SoLuong)
+                    </td>
+                    <td>@(amount.ToString("n0"))</td>
+                </tr>
+            }
+            <tr>
+                <td colspan="4" class="text-end">Thành tiền</td>
+                <td colspan="1"><strong class="text-danger">@(total.ToString("n0"))</strong></td>
+            </tr>
+        </table>
+    </div>
+    <div class="col">
+        <h3 class="text-danger">Thông tin khách</h3>
+        <form asp-action="CreateBill">
+            <div class="mb-3">
+                <label>Họ tên</label>
+                <input name="cusName" class="form-control" type="text" />
+            </div>
+            <div class="mb-3">
+                <label>Điện thoại</label>
+                <input name="cusPhone" class="form-control" type="text" />
+            </div>
+            <div class="mb-3">
+                <label>Địa chỉ</label>
+                <textarea name="cusAddress" class="form-control"></textarea>
+            </div>
+            <input type="hidden" name="billTotal" value="@(total)" />
+            <div class="mb-3">
+                <input type="submit" class="btn btn-primary" value="Xác nhận đơn hàng" />
+            </div>
+        </form>
+    </div>
+
+</div>

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<thethaomvc.Models.SanPham>
+
+
+@{
+    ViewData["Title"] = "Home";
+}
+<style>
+    .card-img{
+        height:240px;
+        overflow:hidden;
+    }
+    .card-header{
+        height:4rem;
+    }
+
+    .card:hover {
+        transition: 0.5s ease-out;
+        border: 2px solid #D61010;
+    }
+</style>
+
+<h1>PRODUCTS</h1>
+
+<form asp-controller="Home" asp-action="Index">
+    <div class="input-group d-flex justify-content-center mb-3">
+        <div class="form-outline">
+            <input type="search" id="form1" name="SearchString"  class="form-control" placeholder="Search" />
+        </div>
+        <button type="submit" value="Filter" class="btn btn-danger ml-2">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
+</form>
+
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-3">
+            <div class="card text-center m-2 shadow">
+                <div class="card-header bg-dark">
+                    <b><a class="text-white text-decoration-none" asp-action="Details" asp-route-id="@item.IdSP">@Html.DisplayFor(modelItem => item.TenSP)</a></b>
+                </div>
+                <div class="card-body text-center">
+                    <div>
+                        <a asp-action="Details" asp-route-id="@item.IdSP">
+                            <img src="~/images/@Html.DisplayFor(modelItem => item.HinhAnh)" max-width="100%"  class="card-img" />
+                        </a>
+                    </div>
+                    <p>Hãng sản xuất: <span class="text-info">@Html.DisplayFor(modelItem => item.HangTT)</span></p>
+                    <p><strong>Giá bán: <span class="text-danger">@Html.DisplayFor(modelItem => item.GiaTien)</span></strong></p>
+                </div>
+                <div class="card-footer d-flex justify-content-around">
+                    <a class="btn btn-dark" asp-action="Details" asp-route-id="@item.IdSP">CHI TIẾT</a>
+                    <a class="btn btn-danger" asp-action="AddToCart" asp-route-id="@item.IdSP">CHỌN MUA</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,66 @@
+﻿@model IEnumerable<thethaomvc.Models.BillDetail>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-bordered">
+    <thead class="bg-dark text-white">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bill)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SanPham.TenSP)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bill.BillId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SanPham.TenSP)
+                </td>
+                <td>
+                    <a class="btn btn-warning mb-1" asp-action="Edit" asp-route-id="@item.BillDetailId">Edit</a> 
+                    <a class="btn btn-warning mb-1" asp-action="Details" asp-route-id="@item.BillDetailId">Details</a>
+                    <a class="btn btn-warning mb-1" asp-action="Delete" asp-route-id="@item.BillDetailId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

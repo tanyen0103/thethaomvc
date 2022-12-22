@@ -1,0 +1,60 @@
+﻿@model List<thethaomvc.Models.CartItem>
+<br />
+<h3>Giỏ hàng của bạn</h3>
+
+@if (Model.Count > 0)
+{
+    int num = 1;        // số thứ tự
+    int amount = 0;     // thành tiền
+    int total = 0;      // tổng tiền
+
+    <table class="table">
+        <tr>
+            <th>STT</th>
+            <th>Sản phẩm</th>
+            <th>Giá</th>
+            <th>Số lượng</th>
+            <th>Thành tiền</th>
+            <th></th>
+        </tr>
+        @foreach (var i in Model)
+        {
+            amount = i.SanPham.GiaTien * i.SoLuong;
+            total += amount;
+            <tr class="align-middle">
+                <td>@(num++)</td>
+                <td>
+                    <img src="~/images/@(i.SanPham.HinhAnh)" class="img-thumbnail" width="50" />
+                    @(i.SanPham.TenSP)
+                </td>
+                <td>@(i.SanPham.GiaTien.ToString("n0"))</td>
+                <td>
+                    <form asp-action="UpdateItem" method="post">
+                        <div class="row">
+                            <div class="col">
+                                <input name="id" type="hidden" asp-for="@(i.SanPham.IdSP)" />
+                                <input name="quantity" type="number" asp-for="@(i.SoLuong)" class="form-control" />
+                            </div>
+                            <div class="col">
+                                <input class="btn btn-warning" type="submit" value="Cập nhật" />
+                            </div>
+                        </div>
+                    </form>
+                </td>
+                <td>@(amount.ToString("n0"))</td>
+                <td><a asp-action="RemoveItem" asp-route-id="@i.SanPham.IdSP" class="btn btn-danger">Xóa</a></td>
+            </tr>
+        }
+        <tr>
+            <td colspan="4" class="text-end">Thành tiền</td>
+            <td colspan="2"><strong class="text-danger">@(total.ToString("n0"))</strong></td>
+        </tr>
+    </table>
+    <div class="text-end">
+        <a class="btn btn-danger" asp-action="CheckOut">Thanh toán</a>
+    </div>
+}
+else
+{
+    <p class="alert alert-danger">Không có sản phẩm trong giỏ hàng!</p>
+}

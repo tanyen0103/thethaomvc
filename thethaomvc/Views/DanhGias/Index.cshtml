@@ -1,0 +1,53 @@
+﻿@model IEnumerable<thethaomvc.Models.DanhGia>
+
+@{
+    ViewData["Title"] = "ĐÁNH GIÁ";
+}
+
+<h1>ĐÁNH GIÁ</h1>
+
+<p>
+    <a asp-action="Create">TẠO MỚI</a>
+</p>
+<table class="table table-bordered">
+    <thead class="bg-dark text-white">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayDang)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NoiDung)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SanPham)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayDang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoiDung)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SanPham.TenSP)
+            </td>
+            <td class="d-flex flex-column">
+                <a class="btn btn-warning mb-1" asp-action="Edit" asp-route-id="@item.IdDG">Edit</a>
+                <a class="btn btn-warning mb-1" asp-action="Details" asp-route-id="@item.IdDG">Details</a>
+                <a class="btn btn-warning mb-1" asp-action="Delete" asp-route-id="@item.IdDG">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

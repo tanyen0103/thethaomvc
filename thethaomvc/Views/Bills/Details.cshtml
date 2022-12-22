@@ -1,0 +1,81 @@
+﻿@model thethaomvc.Models.Bill
+
+@{
+    ViewData["Title"] = "Details";
+    //Details Biill
+    List<SanPham> sp = ViewBag.sanpham;
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Bill</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomerName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CustomerName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomerPhone)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CustomerPhone)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomerAddress)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CustomerAddress)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BillTotal)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BillTotal)
+        </dd>
+        <dt class="col-sm-2">
+            Thông tin chi tiết
+        </dt>
+        
+        <dd class="col-sm-10">
+            <table class="table table-bordered ">
+                <tr><th>Tên hàng</th><th>Đơn giá</th><th>Số lượng</th><th>Thành tiền</th></tr>
+                @foreach (var i in Model.BillDetails)
+                {
+                    <tr>
+                        <td>
+                            @foreach (var item in sp)
+                            {
+                                //Details Biill
+                                if (item.IdSP == i.ProductId)
+                                {
+                                    <img src="~/images/@(item.HinhAnh)" width="70" class="img-thumbnail" />
+                                    @(item.TenSP)
+                                }
+                            }
+
+                        </td>
+                        <td>@(i.Price)</td>
+                        <td>@(i.Quantity)</td>
+                        <td>@(i.Amount)</td>
+                    </tr>
+                }
+            </table>
+        </dd>
+    
+
+    </dl>
+</div>
+<div>
+    <a class="btn btn-danger" asp-action="Edit" asp-route-id="@Model.BillId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

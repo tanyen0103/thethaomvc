@@ -1,0 +1,65 @@
+﻿@model IEnumerable<thethaomvc.Models.SanPham>
+
+@{
+    ViewData["Title"] = "SẢN PHẨM";
+}
+
+<h1>SẢN PHẨM</h1>
+
+<p>
+    <a asp-action="Create">TẠO MỚI</a>
+</p>
+<table class="table table-bordered">
+    <thead class="bg-dark text-white">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TenSP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HangTT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GiaTien)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SoLuong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MoTaSP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HinhAnh)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenSP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HangTT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GiaTien)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SoLuong)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MoTaSP)
+                </td>
+                <td>
+                    <img src="~/images/@Html.DisplayFor(modelItem => item.HinhAnh)" max-width="100%" class="card-img" />
+                </td>
+                <td class="d-flex flex-column" >
+                    <a class="btn btn-warning mb-1" asp-action="Edit" asp-route-id="@item.IdSP">Edit</a>
+                    <a class="btn btn-warning mb-1" asp-action="Details" asp-route-id="@item.IdSP">Details</a>
+                    <a class="btn btn-warning mb-1" asp-action="Delete" asp-route-id="@item.IdSP">Delete</a>
+                </td>
+            </tr>
+         }
+     </tbody>
+</table>
